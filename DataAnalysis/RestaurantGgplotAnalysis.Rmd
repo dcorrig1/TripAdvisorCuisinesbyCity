@@ -1,0 +1,41 @@
+---
+title: "Restaurant Ggplot Analysis"
+output: html_document
+---
+
+```{r}
+library(Rcpp)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+CuisineSummary = read.csv("CityCuisineSummary.csv")
+CuisineSummary = as.tbl(CuisineSummary)
+```
+
+```{r}
+
+
+```
+
+```{r}
+ggobject = CuisineSummary %>% filter(CityName=="New York City")
+```
+```{r}
+g = ggplot(data = ggobject)
+g + aes(x=reorder(Cuisine, CuisineRelativeCityRtg), y=CuisineRelativeCityRtg) + geom_col() + coord_cartesian(ylim=c(0.9, 1.1)) + theme(axis.text.x = element_text(angle=90)) + xlab("Cuisine") + ylab("Avg Rating") + ggtitle("Avg Rating, NYC Restaurants By Cuisine")
+```
+```{r}
+ggobject2 = CuisineSummary %>% filter(CityName=="Baltimore")
+ggplot(data=ggobject2) + aes(x=reorder(Cuisine, AvgCuisineCityRtg), y=AvgCuisineCityRtg) + geom_col() + theme(axis.text.x = element_text(angle=90)) + xlab("Cuisine") + ylab("Avg Rating") + coord_cartesian(ylim=c(3, 4.5))
+```
+```{r}
+ggobject3 = CuisineSummary %>% filter(CityName=="Baltimore")
+ggplot(data=ggobject3) + aes(x=reorder(Cuisine, CityCuisineRelFreq), y=CityCuisineRelFreq, fill=AvgCuisineCityRtg) + geom_col() + theme(axis.text.x = element_text(angle=90)) + xlab("Cuisine") + ylab("Avg Rating") + coord_cartesian(ylim=c(0, 2)) + scale_fill_gradient(low='black', high='yellow') + ggtitle("Relative Frequency and Rating of Cuisines in Baltimore, MD")
+```
+
+```{r}
+library(RColorBrewer)
+```
+
